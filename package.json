@@ -1,7 +1,7 @@
 {
     "name": "git-helper",
     "private": false,
-    "version":"0.0.1",
+    "version": "0.0.1",
     "scripts": {
         "test": "jest"
     },
@@ -13,5 +13,8 @@
         "type": "git",
         "url": "https://github.com/pallyoung/git-helper.git"
     },
-    "license": "Apache 2.0"
+    "license": "Apache 2.0",
+    "devDependencies": {
+        "jest": "^22.4.2"
+    }
 }
