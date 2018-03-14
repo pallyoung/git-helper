@@ -15,9 +15,16 @@ function exec(cmd) {
 function execSync(cmd) {
   try{
       var result = child.execSync(cmd);
-      return result;
+      return {
+        stdout:result.toString('utf-8'),
+        error:null
+      }
   }catch(e){
-    return e;
+    return {
+        stdout:e.stdout.toString('utf-8'),
+        stderr:e.stderr.toString('utf-8'),
+        error:null
+    }
   }
 }
 execSync('git remote -v')
