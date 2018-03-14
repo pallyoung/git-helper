@@ -1,11 +1,17 @@
 {
     "name": "git-helper",
+    "private": false,
     "version":"0.0.1",
     "scripts": {
-        "test": "null"
+        "test": "jest"
     },
     "author": {
         "name": "Spencer Ye",
         "email": "pallyoung@163.com"
-    }
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/pallyoung/git-helper.git"
+    },
+    "license": "Apache 2.0"
 }
