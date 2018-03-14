@@ -1,0 +1,11 @@
+{
+    "name": "git-helper",
+    "version":"0.0.1",
+    "scripts": {
+        "test": "null"
+    },
+    "author": {
+        "name": "Spencer Ye",
+        "email": "pallyoung@163.com"
+    }
+}
