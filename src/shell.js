@@ -12,11 +12,16 @@ function exec(cmd) {
     });
 }
 
-function execAsync(cmd) {
-  
+function execSync(cmd) {
+  try{
+      var result = child.execSync(cmd);
+      return result;
+  }catch(e){
+    return e;
+  }
 }
-
+execSync('git remote -v')
 module.exports = {
     exec,
-    execAsync
+    execSync
 }

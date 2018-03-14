@@ -13,3 +13,10 @@ it('shell exec success',function(){
         expect(result.error).not.toBe(undefined);
     });
 })
+
+it('shell execSync error',function(){
+    expect(sh.execSync('hello world')).not.toBe(undefined);
+});
+it('shell execSync success',function(){
+    expect(sh.execSync('git remote -v')).not.toBe(undefined);
+});
