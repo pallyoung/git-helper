@@ -1,69 +1,58 @@
-var sh = require('./shell');
-
-function remote() {
-    var result = sh.execSync('git remote');
-    if (!result.error) {
-        return result.stdout;
-    } else {
-        throw new Error();
-    }
+const sh = require('./shell');
+const {
+    split
+} = require('./util');
+function info() {
+    const stdout = sh.execSync('git remote');
+    return split(stdout, '\n');
 }
-function remoteVerbose() {
-    var result = sh.execSync('git remote -v');
-    if (!result.error) {
-        var stdout = result.stdout.split('\n');
-        var verbose = {
 
-        }
-        stdout.forEach(item => {
-            try {
-                var name = item.match(/([^\t]*?)\t/)[1];
-                var url = item.match(/\t([^\s]*?)\s/)[1];
-                var type = item.match(/\(([^\)]*?)\)/)[1];
-                if (!verbose[name]) {
-                    verbose[name] = {}
-                }
-                verbose[name][type] = url;
-            } catch (e) {
-                //ignore
-            }
-
-        });
-        return verbose;
-    } else {
-        throw new Error();
-    }
+function verbose() {
+    const stdout = sh.execSync('git remote -v');
+    return split(stdout, '\n');
 }
-function remoteAdd() {
-
+function add(name, address, options) {
+    sh.execSync(`git remote add ${options || ''} ${name} ${address}`);
 }
-function remoteRename(oldname, newname) {
-    var result = sh.execSync('git remote rename ' + oldname + ' ' + newname);
-    if(result.error){
-        throw new Error();
-    }else if(result.stderr){
-        throw new Error();
-    }else{
-        return true;
-    }
+function rename(oldname, newname) {
+    sh.execSync('git remote rename ' + oldname + ' ' + newname);
 }
-function remoteRemove() {
+function remove(name) {
+    sh.execSync(`git remote remove ${name}`);
+}
+function setHead(name, options) {
+    sh.execSync(`git remote set-head ${name} ${optionsq}`);
+}
+function setBranches(name, branchs, options = '') {
+    sh.execSync(`git remote set-branches ${options} ${name} ${branchs.join(' ')}`);
+}
+function setUrl(name, url, options = '') {
+    sh.execSync(`git remote set-url ${options} ${name} ${url}`);
+}
+function getUrl(name, options = '') {
+    const stdout = sh.execSync(`git remote get-url ${options} ${name}`);
+    return split(stdout, '\n');
+}
+function addUrl(name, url, options = '') {
+    sh.execSync(`git remote set-url --add ${options} ${name} ${url}`);
+}
+function deleteUrl(name, url, options = '') {
+    sh.execSync(`git remote set-url --delete ${options} ${name} ${url}`);
+}
+function prune() {
 
 }
-function remoteSetHead() {
-
-}
-function remoteSetBranches() {
-
-}
-function remoteSetUrl() {
-
-}
-function remoteGetUrl() {
-
-}
-console.log(remoteRename('b','origin'))
 module.exports = {
-    remote,
-    remoteVerbose
+    info,
+    verbose,
+    rename,
+    add,
+    remove,
+    setHead,
+    getUrl,
+    setUrl,
+    addUrl,
+    deleteUrl,
+    setBranches,
+    prune
 }
